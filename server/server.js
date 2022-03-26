@@ -8,13 +8,15 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false}));
 server.use(cors());
 
-const logApi = require('./api-routes/api-v1/log');
 const authApi = require('./api-routes/auth/auth');
+const authRegisterApi = require('./api-routes/auth/register');
+const logApi = require('./api-routes/api-v1/log');
 
 const PORT = process.env.PORT || 3500;
 
 
 server.use('/auth', authApi);
+server.use('/auth', authRegisterApi);
 server.use('/api/v1', logApi);
 
 
