@@ -8,7 +8,7 @@ const genarateApiSchema = new mongoose.Schema({
         accessLevel : {type: String, required: true},
         access: [String]
     },
-    time: {type: Date, required: true}
+    // time: {type: Date, required: true}
 });
 
 

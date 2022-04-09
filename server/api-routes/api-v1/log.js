@@ -6,20 +6,18 @@ const verifyApiKey = require('../../middleware/verifyApiKeyMiddleware');
 
 
 // GetAll Log
-router.get('/logs', verifyApiKey, verifyToken, (req, res) => {
-    res.status(200).json({ message: 'here'});
+router.get('/logs', verifyToken, verifyApiKey, (req, res) => {
+    try {
+        res.status(200).json({ message: 'here' });
+    } catch (error) {
+        res.status(401).send({ Error: error });
+    }
+
 });
 
 // Post Logs
-router.post('/logs', verifyApiKey, verifyToken, (req, res) => {
-    let api_Key = req.query.api_key;
+router.post('/logs', verifyToken, verifyApiKey, (req, res) => {
 
-    if (api_Key === "123") {
-        console.log("Verified Key");
-    }
-    else {
-        console.log("Auth Failed");
-    }
 
 });
 

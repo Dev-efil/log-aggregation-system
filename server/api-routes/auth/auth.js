@@ -7,7 +7,7 @@ const User = require("../../model/userModel");
 require('dotenv').config();
 
 
-router.post('/login', async () => {
+router.post('/login', async (req, res) => {
     try {
         const findUser = await User.findOne({ username: req.body.username });
         if (!findUser) {
