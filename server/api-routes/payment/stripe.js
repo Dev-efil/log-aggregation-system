@@ -2,6 +2,22 @@ const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 
+router.get('/test', async (req, res) => {
+    try {
+        const prices = await stripe.prices.list({
+            active: true,
+        });
+        var getprice = prices.data;
+        var arr = [];
+        getprice.forEach(price => {
+            arr.push(price.id);
+        });
+        res.status(200).send(arr);
+    } catch (error) {
+        return res.status(400).send({ Error: error });
+    }
+});
+
 
 // Recurring Subscriptions Annualy - Payment With Card
 router.post('/checkout', async (req, res) => {
@@ -28,8 +44,8 @@ router.post('/checkout', async (req, res) => {
                     quantity: 1
                 }
             ],
-            success_url: '',
-            cancel_url: ''
+            success_url: `${YOUR_DOMAIN}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${YOUR_DOMAIN}/cancel.html`
         });
 
         if (subscription.status === 'succeeded') {
